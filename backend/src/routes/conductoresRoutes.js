@@ -6,7 +6,7 @@ import { requireAuth } from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
-// Proteger todas las rutas de conductores con JWT
+
 router.use(requireAuth);
 
 router.get('/', getConductores);

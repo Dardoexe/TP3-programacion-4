@@ -13,7 +13,7 @@ export const configurePassport = (passport) => {
     passport.use(
         new JwtStrategy(opts, async (jwt_payload, done) => {
             try {
-                // Verificamos que el payload contenga el id del usuario
+               
                 const [rows] = await pool.query('SELECT id, nombre, email FROM usuarios WHERE id = ?', [jwt_payload.id]);
                 if (rows.length > 0) {
                     return done(null, rows[0]);

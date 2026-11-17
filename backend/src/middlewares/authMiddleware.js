@@ -15,17 +15,17 @@ export const requireAuth = async (req, res, next) => {
         const token = authHeader.split(' ')[1];
         const secret = process.env.JWT_SECRET || 'secreto_super_seguro_utn_tp3';
 
-        // Decodificamos y verificamos el token
+        
         const decoded = jwt.verify(token, secret);
 
-        // Verificamos que el usuario siga existiendo en la BD
+        
         const [rows] = await pool.query('SELECT id, nombre, email FROM usuarios WHERE id = ?', [decoded.id]);
 
         if (rows.length === 0) {
             return res.status(401).json({ error: 'No autorizado. Usuario inexistente.' });
         }
 
-        // Adjuntamos el usuario a la petición
+        
         req.user = rows[0];
         next();
     } catch (error) {
